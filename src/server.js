@@ -1,2 +1,2 @@
-const express = require("express");
-const port = process.env.PORT
+const appServer = require("./app");
+appServer();

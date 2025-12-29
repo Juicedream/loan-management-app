@@ -13,7 +13,6 @@
 <body>
   <!-- create - loan  modal -->
   <div>
-    <!-- modal -->
     <dialog id="dialog" aria-labelledby="dialog-title"
       class="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
       <div
@@ -40,7 +39,7 @@
                   Add a new loan
                 </h3>
 
-                <form class="max-w-md mx-auto mt-2 text-white">
+                <form id="addLoanForm" class="max-w-md mx-auto mt-2 text-white">
                   <div class="relative z-0 w-full mb-5 group">
                     <input type="number" name="loanAmount" id="loanAmount"
                       class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
@@ -113,6 +112,7 @@
           </div>
           <div class="bg-gray-700/25 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <button type="button"
+            id="create-loan"
               class="inline-flex w-full justify-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white hover:bg-green-400 sm:ml-3 sm:w-auto">
               Create
             </button>
@@ -168,16 +168,65 @@
     });
   })()
 
-  const loanCreateBtn = ""
-  const logoutBtn = document.getElementById("logout");
-  logoutBtn.addEventListener("click", (e) => {
+
+  
+  
+  const loanCreateBtn = document.getElementById("create-loan");
+  loanCreateBtn.addEventListener("click", async(e) => {
     e.preventDefault();
-    localStorage.clear(),
-      alert("Logged out successfuly");
+    const addLoanForm = document.getElementById("addLoanForm");
+  let addLoanPayload = {}
+  for (const inputForm of addLoanForm) {
+    addLoanPayload = {
+      ...addLoanPayload,
+      [inputForm.name]: inputForm.value
+    }
+  }
+    for(const [key, value] of Object.entries(addLoanPayload)){
+      if(value === "" || value.length < 2) {
+        alert("All fields are required");
+        console.log(addLoanPayload);
+        return;
+      }
+  }
+ 
+    const res = await fetch(`http://localhost:7030/loans/create`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(addLoanPayload)
+    });
+    if (res.status === 500) {
+        alert("Session Expired, Kindly re-login");
+      logout();
+      return;
+    }
+    const data = await res.json();
+    if(data.success === false) {
+      alert(data.message)
+      return;
+    }
+  alert("✅Loan added successfully")
+    console.log(addLoanPayload);
+    const dialog = document.getElementById("dialog");
+    dialog.close();
+    window.location.href = "/";
+  })
+  
+  const logoutBtn = document.getElementById("logout");
+  function logout() {
+    localStorage.clear();
     const token = localStorage.getItem("token");
     if (!token) {
       window.location.href = "/login";
     }
+  }
+  logoutBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    alert("Logged out successfuly");
+    logout();
   })
   // show all loans available for user
   const allLoansBlock = document.getElementById("all-loans-block");
@@ -189,6 +238,11 @@
         "Authorization": `Bearer ${token}`
       },
     });
+    if (res.status === 500) {
+        alert("Session Expired, Kindly re-login");
+      logout();
+      return;
+    }
     const data = await res.json();
     return data;
   }

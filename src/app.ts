@@ -27,7 +27,7 @@ app.use(
 app.get("/", (req: any, res: any) => {
   res.render("index", {
     title: "Dashboard",
-    message: "Welcome to the loan management app",
+    message: "Loan management app",
   });
 });
 

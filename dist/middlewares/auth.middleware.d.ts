@@ -1,0 +1,2 @@
+export declare function authMiddleware(req: any, res: any, next: any): any;
+//# sourceMappingURL=auth.middleware.d.ts.map

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>
+    <%=title %> | Loan Management App
+  </title>
+</head>
+
+<body>
+  <!-- create - loan  modal -->
+  <div>
+    <!-- modal -->
+    <dialog id="dialog" aria-labelledby="dialog-title"
+      class="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
+      <div
+        class="fixed inset-0 bg-gray-900/50 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in">
+      </div>
+
+      <div tabindex="0"
+        class="flex min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0">
+        <div
+          class="relative transform overflow-hidden rounded-lg bg-gray-800 text-left shadow-xl outline -outline-offset-1 outline-white/10 transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95">
+          <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start">
+              <div
+                class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-blue-500/10 sm:mx-0 sm:size-10">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                  aria-hidden="true" class="size-6 text-blue-500">
+                  <path
+                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                <h3 id="dialog-title" class="text-base font-semibold text-white">
+                  Add a new loan
+                </h3>
+
+                <form class="max-w-md mx-auto mt-2 text-white">
+                  <div class="relative z-0 w-full mb-5 group">
+                    <input type="number" name="loanAmount" id="loanAmount"
+                      class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+                      placeholder=" " required />
+                    <label for="loanAmount"
+                      class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Loan
+                      Amount</label>
+                  </div>
+                  <div class="relative z-0 w-full mb-5 group">
+                    <input type="date" name="startDate" id="startDate"
+                      class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+                      placeholder=" " required />
+                    <label for="startDate"
+                      class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Start
+                      Date</label>
+                  </div>
+                  <div class="relative z-0 w-full mb-5 group">
+                    <input type="date" name="endDate" id="endDate"
+                      class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+                      placeholder=" " required />
+                    <label for="endDate"
+                      class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">End
+                      Date</label>
+                  </div>
+                  <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-5 group">
+                      <input type="date" name="nextDateToPay" id="nextDateToPay"
+                        class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+                        placeholder=" " required />
+                      <label for="nextDateToPay"
+                        class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Next
+                        Date To Pay</label>
+                    </div>
+                    <div class="relative z-0 w-full mb-5 group">
+                      <input type="text" name="lenderName" id="lenderName"
+                        class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+                        placeholder=" " required />
+                      <label for="lenderName"
+                        class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Lender's
+                        Name</label>
+                    </div>
+                  </div>
+                  <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-5 group">
+                      <input type="text" name="lenderRelationship" id="lenderRelationship"
+                        class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+                        placeholder=" " required />
+                      <label for="lenderRelationship"
+                        class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Lender's
+                        Relationship</label>
+                    </div>
+                    <div class="relative z-0 w-full mb-5 group">
+                      <input type="text" name="reason" id="reason"
+                        class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+                        placeholder=" " required />
+                      <label for="reason"
+                        class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Reason
+                        (Ex. Fees)</label>
+                    </div>
+                  </div>
+                  <!-- <button
+                          type="submit"
+                          class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+                        >
+                          Submit
+                        </button> -->
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-700/25 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <button type="button"
+              class="inline-flex w-full justify-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white hover:bg-green-400 sm:ml-3 sm:w-auto">
+              Create
+            </button>
+            <button type="button" id="cancelCreate"
+              class="mt-3 inline-flex w-full justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 sm:mt-0 sm:w-auto">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  </div>
+  <!-- homepage -->
+  <div class="mb-4 flex justify-between items-between px-4 py-4">
+    <h2>
+      <%= message %>
+    </h2>
+    <div class="flex gap-2">
+      <button id="openDialog" type="button" title="Add Loan"
+        class="bg-blue-500 px-6 py-1 rounded-full font-2xl text-white cursor-pointer">
+        Add
+      </button>
+
+      <button id="logout" class="border border-blue-500 px-6 py-1 rounded-full font-2xl text-blue-500 cursor-pointer">
+        Logout
+      </button>
+    </div>
+  </div>
+  <!-- all loans -->
+  <div id="all-loans-block" class="w-[100%] flex gap-8 flex-wrap justify-center items-center mt-8 space-y-4">
+
+
+  </div>
+  </div>
+</body>
+<script>
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
+
+  (function createLoanModal() {
+    const dialog = document.getElementById("dialog");
+    const openBtn = document.getElementById("openDialog");
+    const closeBtn = document.getElementById("cancelCreate");
+
+    openBtn.addEventListener("click", () => {
+      dialog.showModal();
+    });
+
+    closeBtn.addEventListener("click", () => {
+      dialog.close();
+    });
+  })()
+
+  const loanCreateBtn = ""
+  const logoutBtn = document.getElementById("logout");
+  logoutBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    localStorage.clear(),
+      alert("Logged out successfuly");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login";
+    }
+  })
+  // show all loans available for user
+  const allLoansBlock = document.getElementById("all-loans-block");
+  async function getAllLoans() {
+    const res = await fetch(`http://localhost:7030/loans/user-loans`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    });
+    const data = await res.json();
+    return data;
+  }
+  async function showUserLoans() {
+    const data = await getAllLoans();
+    if (data.success === false) {
+      allLoansBlock.textContent = "No Loans available. Add a new loan"
+      return;
+    }
+    displayLoanCard(allLoansBlock, data.loans)
+  }
+
+  function displayLoanCard(element, loansArray) {
+    element.textContent = "";
+    for (loan of loansArray) {
+      const { loanAmount, lenderName, nextDateToPay, id } = loan;
+      element.innerHTML += loanCard(loanAmount, lenderName, nextDateToPay, id);
+    }
+    const buttons = document.querySelectorAll("#all-loans-block button");
+    for (button of buttons) {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        const loanId = button.dataset.loanId
+        window.location.href = `/loan/${loanId}`;
+      })
+    }
+  }
+
+  function loanCard(loanAmount, lenderName, nextDateToPay, id) {
+    return `
+        <div
+        class="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
+      >
+        <div
+          class="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600"
+        ></div>
+        <div class="p-6">
+          <h5
+            class="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased"
+          >
+            ₦${loanAmount.toLocaleString()}
+          </h5>
+          <p
+            class="block font-sans text-base font-light leading-relaxed text-inherit antialiased"
+          >
+            Lender: <span class="font-medium text-blue-500">${lenderName.toUpperCase()} </span>
+          </p>
+          <p
+            class="block font-sans text-base font-light leading-relaxed text-inherit antialiased"
+          >
+            Next Date to pay: 
+            <span class="text-blue-500 font-bold">${nextDateToPay}</span>
+          </p>
+        </div>
+        <div class="p-6 pt-0">
+          <button
+            data-ripple-light="true"
+            type="button"
+            class="cursor-pointer select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            data-loan-id=${id}
+          >
+            View Loan Status
+          </button>
+        </div>
+      </div>
+      `
+  }
+
+  function displayLoanStatusCard() {
+
+  }
+  showUserLoans()
+</script>
+
+</html>

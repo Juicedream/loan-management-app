@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Loan Page | </title>
+</head>
+<body>
+    <!-- <h2><%= loanId %></h2> -->
+</body>
+<script>
+     const token = localStorage.getItem("token")
+    if (!token) {
+        window.location.href = "/";
+    }
+    const loanId = window.location.pathname.split("/")[2];
+    async function getLoanById () {
+        const res = await fetch(`http://localhost:7030/loans/${loanId}`, {
+            method: "get",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+        });
+        const data = await res.json();
+        return data;
+    }
+    async function showLoanData() {
+    const loanData = await getLoanById();
+    if (loanData.success === false) {
+        alert(loanData.message);
+        window.history.back();
+    }
+    console.log(loanData);
+    }
+    showLoanData()
+</script>
+</html>

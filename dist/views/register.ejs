@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Page</title>
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
+"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="m-0 p-0 flex justify-center space-y-4">
+    <h2>Register Page</h2>
+    <div class="mt-4 flex">
+      <form class="flex flex-col gap-4" id="registerForm">
+        <div class="">
+          <label for="fullname">Fullname</label>
+          <input
+            type="fullname"
+            name="fullname"
+            id="fullname"
+            placeholder="Enter your full name"
+          />
+        </div>
+        <div class="">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter your email"
+          />
+        </div>
+        <div class="">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter your password"
+          />
+        </div>
+        <div class="">
+          <button type="submit" class="text-white bg-black p-2 rounded-md">
+            Register
+          </button>
+          <p>Already registered? Click <a href="/login">here</a></p>
+        </div>
+      </form>
+    </div>
+    <script src="
+https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js
+"></script>
+
+    <script>
+      const token = localStorage.getItem("token");
+      console.log(token)
+      if (token) {
+        window.location.href = "/";
+      }
+      let email = document.getElementById("email");
+      let password = document.getElementById("password");
+      let fullname = document.getElementById("fullname");
+      const registerForm = document.getElementById("registerForm");
+      registerForm.addEventListener("submit", handleRegister);
+      async function handleRegister(e) {
+        e.preventDefault();
+        if (
+          email.value === "" ||
+          password.value === "" ||
+          fullname.value === ""
+        ) {
+          alert("All fields are required");
+          return;
+        }
+        const registerData = {
+          email: email.value,
+          password: password.value,
+          fullname: fullname.value,
+        };
+        console.log({ registerData });
+        const res = await fetch("http://localhost:7030/users/register", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(registerData),
+        });
+        const data = await res.json();
+        console.log(data);
+        if (data.success === false) {
+          alert(data.message);
+        } else {
+          alert(data.message);
+          localStorage.setItem("token", data.token);
+          email.value = "";
+          password.value = "";
+          fullname.value = "";
+          window.location.href = "/";
+        }
+      }
+    </script>
+  </body>
+</html>

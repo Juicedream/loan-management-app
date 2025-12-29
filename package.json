@@ -4,16 +4,27 @@
   "description": "for managing loans by uploading images of payment of reciepts and when they are due to be payed ",
   "license": "ISC",
   "author": "Jude Nwadiogor",
-  "type": "commonjs",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --env-file=.env --watch src/server.js"
+    "dev": "npm run build && node --env-file=.env --watch dist/server.js",
+    "build": "tsc"
   },
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1",
     "multer": "^2.0.2",
     "tesseract.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^25.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

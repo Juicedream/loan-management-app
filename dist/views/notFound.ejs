@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Not Found Page</title>
+</head>
+<body>
+    <p class="flex gap-4">
+        <button id="go-back" class="bg-white text-black text-underline">🔙</button>
+        Go back</p>
+    <h2>This page is not found</h2>
+</body>
+<script>
+    const token = localStorage.getItem("token")
+    if (!token) {
+        window.location.href = "/";
+    }
+    const goBackBtn = document.getElementById("go-back");
+    goBackBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.history.back()
+    })
+</script>
+</html>

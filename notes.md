@@ -4,15 +4,15 @@
 
 - [ ] it should deduct the particular loan amount from the amount being owed.
 
-- [ ] it should save the data to a mock database file
+- [x] it should save the data to a mock database file
 
-- [ ] it should have a nice ui
+- [x] it should have a nice ui
  
- - [ ] users should be able to login to see their current loans
+ - [x] users should be able to login to see their current loans
 
  - [x] users should be able to add a new loan to manage it.
 
- - [ ] users should be able to see the next repayment period  date for each loan 
+ - [x] users should be able to see the next repayment period  date for each loan 
 
  - [x] users should be able to add loans based on some conditions
 
